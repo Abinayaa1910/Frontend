@@ -1,0 +1,234 @@
+<!-- ==========================
+ Navbar Component at the top of the page
+ ========================== -->
+<app-navbar></app-navbar>
+
+<!-- ==========================
+ Google Material Icons for section legends
+ ========================== -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- ==========================
+ Main container for the prompt input form
+ ========================== -->
+<div class="prompt-container">
+  <h1>Create Your Personalized Campaign</h1>
+  <p class="subtext">Fill in the details below and let AI generate tailored marketing content just for you.</p>
+
+  <!-- Angular form with template reference variable `formRef` -->
+  <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef)" novalidate>
+
+    <!-- ========== Section 1: Basic User Details ========== -->
+    <fieldset>
+      <legend><span class="material-icons">person</span> User Details</legend>
+      <div class="form-row">
+
+        <!-- Gender selection -->
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" [(ngModel)]="formData.gender" name="gender" required #genderRef="ngModel" 
+                  [ngClass]="{ 'placeholder-grey': !formData.gender }">
+            <option value="" disabled selected hidden>Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+          <span *ngIf="genderRef.invalid && genderRef.touched" class="error">Gender is required</span>
+        </div>
+
+        <!-- Location input -->
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input
+            type="text"
+            id="location"
+            maxlength="35"
+            [(ngModel)]="formData.location"
+            name="location"
+            required
+            #locationRef="ngModel"
+            placeholder="e.g. Tampines"
+            (ngModelChange)="autoCapitalizeField('location')"
+          />
+          <small class="char-limit">{{ formData.location?.length || 0 }}/35 characters</small>
+          <span *ngIf="locationRef.invalid && locationRef.touched" class="error">Location is required</span>
+        </div>
+
+        <!-- Loyalty tier selection -->
+        <div class="form-group">
+          <label for="loyalty_tier">Loyalty Tier</label>
+          <select id="loyalty_tier" [(ngModel)]="formData.loyalty_tier" name="loyalty_tier" required #loyaltyRef="ngModel"
+                  [ngClass]="{ 'placeholder-grey': !formData.loyalty_tier }">
+            <option value="" disabled selected hidden>Select</option>
+            <option>Silver</option>
+            <option>Gold</option>
+            <option>Platinum</option>
+          </select>
+          <span *ngIf="loyaltyRef.invalid && loyaltyRef.touched" class="error">Loyalty Tier is required</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ========== Section 2: Membership Info ========== -->
+    <fieldset>
+      <legend><span class="material-icons">calendar_today</span> Membership Info</legend>
+      <div class="form-row">
+
+        <!-- Join year -->
+        <div class="form-group">
+          <label for="join_year">Year Joined</label>
+          <select id="join_year" [(ngModel)]="formData.join_year" name="join_year" required #joinYearRef="ngModel"
+                  [ngClass]="{ 'placeholder-grey': !formData.join_year }">
+            <option value="" disabled selected hidden>Select</option>
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+          <span *ngIf="joinYearRef.invalid && joinYearRef.touched" class="error">Join Year is required</span>
+        </div>
+
+        <!-- Join month -->
+        <div class="form-group">
+          <label for="join_month">Month Joined</label>
+          <select id="join_month" [(ngModel)]="formData.join_month" name="join_month" required #joinMonthRef="ngModel"
+                  [ngClass]="{ 'placeholder-grey': !formData.join_month }">
+            <option value="" disabled selected hidden>Select Month</option>
+            <option *ngFor="let month of months; let i = index" 
+                    [value]="month"
+                    [disabled]="formData.join_year == currentYear && (i + 1) > currentMonth">
+              {{ month }}
+            </option>
+          </select>
+          <span *ngIf="joinMonthRef.invalid && joinMonthRef.touched" class="error">Join Month is required</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ========== Section 3: Campaign Inputs ========== -->
+    <fieldset>
+      <legend><span class="material-icons">campaign</span> Campaign Inputs</legend>
+
+      <!-- Objective -->
+      <div class="form-group">
+        <label>Objective</label>
+        <input
+          type="text"
+          maxlength="100"
+          [(ngModel)]="formData.objective"
+          name="objective"
+          required
+          #objRef="ngModel"
+          placeholder="e.g. Boost brand awareness for a product launch"
+          (ngModelChange)="autoCapitalizeField('objective')"
+        />
+        <small class="char-limit">{{ formData.objective?.length || 0 }}/100 characters</small>
+        <span *ngIf="objRef.invalid && objRef.touched" class="error">Objective is required</span>
+      </div>
+
+      <!-- Industry -->
+      <div class="form-group">
+        <label>Industry</label>
+        <input
+          type="text"
+          maxlength="100"
+          [(ngModel)]="formData.industry"
+          name="industry"
+          required
+          #industryRef="ngModel"
+          placeholder="e.g. Travel & Tourism, F&B, Education"
+          (ngModelChange)="autoCapitalizeField('industry')"
+        />
+        <small class="char-limit">{{ formData.industry?.length || 0 }}/100 characters</small>
+        <span *ngIf="industryRef.invalid && industryRef.touched" class="error">Industry is required</span>
+      </div>
+      
+      <!-- Marketing funnel stage -->
+      <div class="form-group">
+        <label>Marketing Funnel Stage</label>
+        <select [(ngModel)]="formData.marketing_funnel_stage" name="marketing_funnel_stage" required #funnelRef="ngModel"
+                [ngClass]="{ 'placeholder-grey': !formData.marketing_funnel_stage }">
+          <option value="" disabled selected hidden>Select</option>
+          <option>Awareness</option>
+          <option>Consideration</option>
+          <option>Decision</option>
+          <option>Loyalty</option>
+        </select>
+        <span *ngIf="funnelRef.invalid && funnelRef.touched" class="error">Stage is required</span>
+      </div>
+
+      <!-- Past engagement -->
+      <div class="form-group">
+        <label>Past Engagement</label>
+        <select [(ngModel)]="formData.past_engagement" name="past_engagement" required #engageRef="ngModel"
+                [ngClass]="{ 'placeholder-grey': !formData.past_engagement }">
+          <option value="" disabled selected hidden>Select</option>
+          <option>High</option>
+          <option>Moderate</option>
+          <option>Low</option>
+        </select>
+        <span *ngIf="engageRef.invalid && engageRef.touched" class="error">Past Engagement is required</span>
+      </div>
+    </fieldset>
+
+    <!-- ========== Section 4: Content Preferences ========== -->
+    <fieldset>
+      <legend><span class="material-icons">palette</span> Content Preferences</legend>
+      <div class="form-row">
+
+        <!-- Platform -->
+        <div class="form-group">
+          <label>Platform</label>
+          <select [(ngModel)]="formData.platform" name="platform" required #platformRef="ngModel"
+                  [ngClass]="{ 'placeholder-grey': !formData.platform }">
+            <option value="" disabled selected hidden>Select</option>
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option>LinkedIn</option>
+            <option>TikTok</option>
+            <option>Email</option>
+            <option>Website</option>
+          </select>
+          <span *ngIf="platformRef.invalid && platformRef.touched" class="error">Platform is required</span>
+        </div>
+
+        <!-- Post type -->
+        <div class="form-group">
+          <label>Post Type</label>
+          <select [(ngModel)]="formData.post_type" name="post_type" required #typeRef="ngModel"
+                  [ngClass]="{ 'placeholder-grey': !formData.post_type }">
+            <option value="" disabled selected hidden>Select</option>
+            <option>Text</option>
+            <option>Image</option>
+            <option>Both</option>
+          </select>
+          <span *ngIf="typeRef.invalid && typeRef.touched" class="error">Post Type is required</span>
+        </div>
+
+        <!-- Tone -->
+        <div class="form-group">
+          <label>Tone</label>
+          <select [(ngModel)]="formData.tone" name="tone" required #toneRef="ngModel"
+                  [ngClass]="{ 'placeholder-grey': !formData.tone }">
+            <option value="" disabled selected hidden>Select</option>
+            <option>Professional</option>
+            <option>Fun</option>
+            <option>Empathetic</option>
+            <option>Casual</option>
+            <option>Playful</option>
+          </select>
+          <span *ngIf="toneRef.invalid && toneRef.touched" class="error">Tone is required</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ========== Section 5: Variants ========== -->
+    <fieldset>
+      <legend><span class="material-icons">tune</span> Variants</legend>
+      <div class="form-group">
+        <label>Number of Variants: {{ formData.num_variants }}</label>
+        <input type="range" min="1" max="3" [(ngModel)]="formData.num_variants" name="num_variants" />
+      </div>
+    </fieldset>
+
+    <!-- Submit button -->
+    <button type="submit" class="generate-btn" [disabled]="!formRef.valid">Generate Content</button>
+  </form>
+</div>

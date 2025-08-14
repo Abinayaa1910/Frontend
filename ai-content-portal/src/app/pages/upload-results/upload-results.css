@@ -1,0 +1,256 @@
+/* =========================
+   --- Loading Screen Styles ---
+   ========================= */
+
+/* Fullscreen overlay for the loading state */
+.loading-screen {
+  position: fixed;
+  inset: 0; /* shorthand for top, right, bottom, left: 0 */
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 1000; /* stays above all content */
+}
+
+/* Rotating spinner icon */
+.spinner-icon {
+  font-size: 3rem;
+  color: #6366f1;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+/* Rotation animation for the spinner */
+@keyframes spin { 
+  to { transform: rotate(360deg); } 
+}
+
+/* Main loading quote text */
+.loading-quote {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+/* Smaller subtext under loading quote */
+.loading-subtext {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+/* =========================
+   --- Layout Styles ---
+   ========================= */
+
+/* Main wrapper for results layout (two-column) */
+.results-wrapper {
+  display: flex;
+  gap: 2rem; /* space between left and right panels */
+}
+
+/* Left and right content panels */
+.results-left, 
+.results-right {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Column sizing */
+.results-left { flex: 1; }
+.results-right { flex: 2; }
+
+/* =========================
+   --- Form Group Styles ---
+   ========================= */
+
+/* Container for label + input */
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+/* Form field labels */
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+/* =========================
+   --- Input Field Styles ---
+   ========================= */
+
+/* Base input styling */
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* Focus state styling */
+.input-field:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+
+/* =========================
+   --- Character Counter ---
+   ========================= */
+
+/* Text under inputs showing character limits */
+.char-limit {
+  display: block;
+  text-align: right;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* =========================
+   --- Generate Button ---
+   ========================= */
+
+.generate-btn {
+  margin-top: 1rem;
+  background: #6366f1;
+  color: #ffffff;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.generate-btn:hover {
+  background: #4f46e5;
+}
+
+/* =========================
+   --- Variant Box Styles ---
+   ========================= */
+
+/* Stacked variant boxes layout */
+.variant-boxes-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Individual variant box container */
+.variant-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* =========================
+   --- Toggle Buttons ---
+   ========================= */
+
+/* Button group container */
+.toggle-buttons {
+  display: inline-flex;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+/* Individual toggle button styling */
+.toggle-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #f4f4f6;
+  cursor: pointer;
+}
+
+/* Active toggle state */
+.toggle-buttons button.active {
+  background: #6366f1;
+  color: #fff;
+}
+
+/* =========================
+   --- Scrollable Content Box ---
+   ========================= */
+
+/* Scrollable box for content overflow */
+.scroll-box {
+  background: #fafafa;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+/* =========================
+   --- Editable Text Area ---
+   ========================= */
+
+.editable-text {
+  width: 100%;
+  min-height: 120px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 0.75rem;
+  resize: vertical; /* allows vertical resizing */
+}
+
+/* =========================
+   --- Action Buttons ---
+   ========================= */
+
+/* Copy and Download buttons base style */
+.copy-button,
+.download-button {
+  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+/* Copy button default */
+.copy-button {
+  background: #10b981;
+}
+
+/* Copy button after content copied */
+.copy-button.copied {
+  background: #047857;
+}
+
+/* Download button style */
+.download-button {
+  background: #6366f1;
+}
+
+/* =========================
+   --- AI Note Box ---
+   ========================= */
+
+/* Highlighted note for AI-generated content disclaimer */
+.ai-note {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+}

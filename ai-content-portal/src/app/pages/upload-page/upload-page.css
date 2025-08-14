@@ -1,0 +1,425 @@
+/* -------------------------------------------------
+   GLOBAL STYLES & FONT CONSISTENCY
+------------------------------------------------- */
+body, input, select, textarea, button, label, legend, fieldset {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Wrapper for form sections */
+.form-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* -------------------------------------------------
+   TOP HEADER SECTION
+------------------------------------------------- */
+.upload-heading {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.upload-heading h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.upload-heading .upload-subtext {
+  font-size: 1.1rem;
+  color: #6b7280;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* -------------------------------------------------
+   UPLOAD CARD STYLES
+------------------------------------------------- */
+.upload-card {
+  background: #f9fafb;
+  border-left: 5px solid #6366f1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.upload-card legend {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.upload-card .subtitle {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.upload-card .upload-input {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Custom Upload Button */
+.custom-upload-btn {
+  background-color: #f1f5f9;
+  border: 2px dashed #94a3b8;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.custom-upload-btn:hover {
+  background-color: #e2e8f0;
+}
+
+.file-name {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* -------------------------------------------------
+   CAMPAIGN INPUTS FIELDSET
+------------------------------------------------- */
+fieldset {
+  border: none;
+  background: #f9fafb;
+  border-left: 5px solid #6366f1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  text-align: left;
+}
+
+legend {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+input, select {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: border 0.2s, box-shadow 0.2s;
+  color: #111827;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+select:invalid {
+  color: #9ca3af;
+}
+
+/* Upload Button */
+.generate-btn {
+  margin-top: 2rem;
+  background-color: #6366f1;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.generate-btn:hover {
+  background-color: #4f46e5;
+}
+
+.generate-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.char-limit {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 4px;
+  text-align: right;
+  display: block;
+}
+
+select.placeholder-grey {
+  color: #9ca3af;
+}
+
+select option {
+  color: #111827;
+}
+
+select option[disabled] {
+  color: #9ca3af;
+}
+
+/* -------------------------------------------------
+   ERROR MESSAGES
+------------------------------------------------- */
+.error-msg {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-top: 1.25rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.error-msg .material-symbols-outlined {
+  font-size: 1.3rem;
+  color: #ef4444;
+}
+
+/* -------------------------------------------------
+   LOADING SCREEN
+------------------------------------------------- */
+.prompt-container.loading-screen {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2.5rem 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.spinner-icon {
+  display: block;
+  font-size: 3rem;
+  color: #6366f1;
+  animation: spin 1.3s linear infinite;
+  margin: 0 auto 1.25rem;
+}
+
+.loading-quote {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.5rem;
+}
+
+.loading-source {
+  font-size: 1rem;
+  color: #6366f1;
+  margin: 0 0 1rem;
+}
+
+.loading-source a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.loading-subtext {
+  font-size: 1rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* -------------------------------------------------
+   RESULTS SCREEN
+------------------------------------------------- */
+.results-screen {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  font-family: 'Inter','Segoe UI', sans-serif;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid #e5e7eb;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.results-header .results-icon {
+  font-size: 32px;
+  color: #6366f1;
+  margin-bottom: 0.5rem;
+}
+
+.results-header h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.results-subtext {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+/* Cluster Card */
+.cluster-section {
+  margin-top: 2rem;
+}
+
+.cluster-card {
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.cluster-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.highlight {
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+.member-count {
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+/* Post Preview */
+.post-label {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.post-content {
+  background: #ffffff;
+  padding: 1rem;
+  border-left: 4px solid #3b82f6;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  white-space: pre-line;
+}
+
+.generated-post img {
+  margin-top: 1rem;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Refine Button */
+button.segment-refine-btn {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #8b5cf6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2);
+}
+
+button.segment-refine-btn:hover {
+  background-color: #7c3aed;
+}
+
+button.segment-refine-btn:disabled {
+  background-color: #d8b4fe;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* -------------------------------------------------
+   FORM VALIDATION
+------------------------------------------------- */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #dc2626 !important;
+  background-color: #fef2f2 !important;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  font-weight: 500;
+}
+
+button:disabled,
+.generate-btn[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* -------------------------------------------------
+   ANIMATIONS
+------------------------------------------------- */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

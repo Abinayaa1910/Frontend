@@ -1,0 +1,169 @@
+/* ----------------------------
+   NAVBAR MAIN CONTAINER
+   ---------------------------- */
+.nav-links {
+  display: flex; /* Aligns children horizontally */
+  align-items: center; /* Vertically center content */
+  justify-content: space-between; /* Space between left and right sections */
+  padding: 1.2rem 2.5rem;
+  background-color: #ffffff; /* White background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* Soft shadow under navbar */
+  position: sticky; /* Keeps navbar visible while scrolling */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 999; /* High stacking order to stay above other elements */
+}
+
+/* ----------------------------
+   CENTERED WRAPPER (Smart Tools + Get Started)
+   ---------------------------- */
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); /* Centers horizontally */
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Space between items */
+}
+
+/* ----------------------------
+   LOGO STYLING
+   ---------------------------- */
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: #111;
+  gap: 8px; /* Space between logo image and text */
+  max-height: 48px;
+}
+.logo img {
+  height: 180px; /* Logo height */
+  width: auto;
+  object-fit: contain; /* Maintain proportions */
+}
+
+/* ----------------------------
+   DROPDOWN WRAPPER
+   ---------------------------- */
+.dropdown {
+  position: relative; /* Required for absolutely positioned menu */
+}
+
+/* ----------------------------
+   DROPDOWN TOGGLE BUTTON
+   ---------------------------- */
+.dropdown-toggle {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px; /* Fully rounded */
+  background-color: white;
+  transition: background 0.3s, color 0.3s; /* Smooth hover effect */
+}
+.dropdown-toggle:hover {
+  background: linear-gradient(90deg, #6a11cb, #2575fc); /* Gradient background */
+  color: white;
+}
+
+/* ----------------------------
+   DROPDOWN MENU
+   ---------------------------- */
+.dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 3.5rem; /* Below toggle button */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); /* Larger shadow for floating look */
+  border-radius: 16px;
+  padding: 1.2rem;
+  width: 700px; /* Large dropdown width */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two-column layout */
+  gap: 0.1rem;
+  z-index: 1000; /* Above navbar */
+}
+.dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: #111827;
+  font-weight: 500;
+}
+
+/* Show menu on hover */
+.dropdown:hover .dropdown-menu {
+  display: grid;
+}
+
+/* ----------------------------
+   DROPDOWN ITEM
+   ---------------------------- */
+.dropdown-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border-radius: 12px;
+  padding: 1rem;
+  text-decoration: none;
+  transition: all 0.2s ease; /* Smooth hover transition */
+  color: inherit;
+}
+.dropdown-item:hover {
+  background-color: #f0f4ff; /* Light blue background */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+.dropdown-item img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* ----------------------------
+   TOOL TEXT INSIDE DROPDOWN
+   ---------------------------- */
+.tool-text strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.3rem;
+  text-decoration: none;
+}
+.tool-text p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #666;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+/* Make links inside dropdown inherit parent color */
+.dropdown-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ----------------------------
+   GET STARTED BUTTON
+   ---------------------------- */
+.get-started-btn {
+  background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient fill */
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1.8rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: transform 0.2s ease; /* Button scale effect */
+}
+.get-started-btn:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,186 @@
+<app-navbar></app-navbar>
+
+<!-- ---------------- External Icons ---------------- -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+  rel="stylesheet"
+/>
+
+<div class="upload-section">
+
+  <!-- ========================================================= -->
+  <!-- TOP HEADING SECTION -->
+  <!-- ========================================================= -->
+  <div class="upload-heading" *ngIf="!isLoading">
+    <h1>Segment Your Customers with AI</h1>
+    <p class="upload-subtext">
+      Upload your customer dataset to automatically group similar customers and
+      generate targeted posts for each segment.
+    </p>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- LOADING SCREEN -->
+  <!-- ========================================================= -->
+  <div class="prompt-container loading-screen" *ngIf="isLoading">
+    <!-- Spinner Icon -->
+    <span class="material-symbols-outlined spinner-icon">hourglass_top</span>
+
+    <!-- Quote text -->
+    <p class="loading-quote">{{ currentQuote.quote }}</p>
+    <p class="loading-source">{{ currentQuote.author }}</p>
+
+    <!-- Subtext -->
+    <p class="loading-subtext">Hang tight! We’re generating your AI-driven segments.</p>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MAIN FORM CONTENT -->
+  <!-- ========================================================= -->
+  <div *ngIf="!isLoading" class="form-wrapper">
+
+    <!-- ---------------- File Upload Section ---------------- -->
+    <div class="upload-card">
+      <legend>
+        <span class="material-symbols-outlined">cloud_upload</span> Upload Your Excel File
+      </legend>
+      <p class="subtitle">
+        Ensure your file includes these required columns:
+        <strong>date</strong>, <strong>location</strong>, and
+        <strong>loyalty tier</strong>.<br />
+        Accepted formats: <strong>only .xlsx</strong> — first row must contain headers.
+      </p>
+
+      <!-- File Input -->
+      <div class="upload-input">
+        <input
+          type="file"
+          id="file-upload"
+          (change)="onFileSelected($event)"
+          hidden
+          required
+        />
+        <label for="file-upload" class="custom-upload-btn">
+          <span class="material-symbols-outlined">upload_file</span>
+          Choose Excel File
+        </label>
+        <span class="file-name">{{ selectedFile?.name || 'No file chosen' }}</span>
+      </div>
+
+      <!-- Upload Error -->
+      <div *ngIf="uploadError" class="error-msg">
+        <span class="material-symbols-outlined">error</span>
+        {{ uploadError }}
+      </div>
+    </div>
+
+    <!-- ---------------- Campaign Inputs Section ---------------- -->
+    <fieldset>
+      <legend>
+        <span class="material-symbols-outlined">campaign</span> Campaign Inputs
+      </legend>
+
+      <!-- Objective -->
+      <div class="form-group">
+        <label for="objective">Objective</label>
+        <input
+          id="objective"
+          type="text"
+          maxlength="100"
+          required
+          [(ngModel)]="campaignInputs.objective"
+          (ngModelChange)="autoCapitalizeField('objective')"
+          name="objective"
+          #objRef="ngModel"
+          placeholder="e.g. Boost brand awareness for a product"
+          class="input-field"
+        />
+        <small class="char-limit">
+          {{ campaignInputs.objective.length || 0 }}/100 characters
+        </small>
+        <span *ngIf="objRef.invalid && objRef.touched" class="error">
+          Objective is required
+        </span>
+      </div>
+
+      <!-- Industry -->
+      <div class="form-group">
+        <label for="industry">Industry</label>
+        <input
+          id="industry"
+          type="text"
+          maxlength="100"
+          required
+          [(ngModel)]="campaignInputs.industry"
+          (ngModelChange)="autoCapitalizeField('industry')"
+          name="industry"
+          #industryRef="ngModel"
+          placeholder="e.g. Travel & Tourism, F&B, Education"
+          class="input-field"
+        />
+        <small class="char-limit">
+          {{ campaignInputs.industry.length || 0 }}/100 characters
+        </small>
+        <span *ngIf="industryRef.invalid && industryRef.touched" class="error">
+          Industry is required
+        </span>
+      </div>
+
+      <!-- Marketing Funnel Stage -->
+      <div class="form-group">
+        <label for="funnelStage">Marketing Funnel Stage</label>
+        <select
+          id="funnelStage"
+          required
+          [(ngModel)]="campaignInputs.funnelStage"
+          name="funnelStage"
+          #funnelRef="ngModel"
+          class="input-field"
+        >
+          <option value="" disabled hidden>Select a stage</option>
+          <option value="Awareness">Awareness</option>
+          <option value="Consideration">Consideration</option>
+          <option value="Decision">Decision</option>
+          <option value="Loyalty">Loyalty</option>
+        </select>
+        <span *ngIf="funnelRef.invalid && funnelRef.touched" class="error">
+          Funnel stage is required
+        </span>
+      </div>
+
+      <!-- Past Engagement -->
+      <div class="form-group">
+        <label for="pastEngagement">Past Engagement</label>
+        <select
+          id="pastEngagement"
+          required
+          [(ngModel)]="campaignInputs.pastEngagement"
+          name="pastEngagement"
+          #engageRef="ngModel"
+          class="input-field"
+        >
+          <option value="" disabled hidden>Select engagement level</option>
+          <option value="High">High</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Low">Low</option>
+        </select>
+        <span *ngIf="engageRef.invalid && engageRef.touched" class="error">
+          Past Engagement is required
+        </span>
+      </div>
+    </fieldset>
+
+    <!-- ---------------- Upload Button ---------------- -->
+    <button
+      class="generate-btn"
+      type="button"
+      (click)="uploadFile()"
+      [disabled]="isUploadDisabled"
+    >
+      <span class="material-symbols-outlined">send</span> Upload File
+    </button>
+
+  </div> <!-- End .form-wrapper -->
+
+</div> <!-- End .upload-section -->

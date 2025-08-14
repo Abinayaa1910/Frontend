@@ -1,0 +1,90 @@
+<!-- ==========================
+ Navbar Component Template
+ Purpose: Displays the main navigation bar with logo, smart tools dropdown, 
+          and a conditional "Get Started" button.
+ ========================== -->
+<nav class="nav-links">
+
+  <!-- ==========================
+       Left Section: Logo
+       Clicking the logo triggers scrollToTop() method.
+  ========================== -->
+  <a class="logo" (click)="scrollToTop()">
+    <img src="assets/navbar_icons/logo-icon.png" alt="CreateAI Logo" />
+  </a>
+
+  <!-- ==========================
+       Center Section: Smart Tools Dropdown
+       Contains links to all major tool features.
+  ========================== -->
+  <div class="nav-center">
+    <!-- Dropdown trigger -->
+    <div class="dropdown" (click)="toggleDropdown()" [class.open]="isDropdownOpen">
+      <span class="dropdown-toggle">Smart Tools ▾</span>
+
+      <!-- Dropdown menu appears only if isDropdownOpen is true -->
+      <div class="dropdown-menu" *ngIf="isDropdownOpen">
+
+        <!-- Smart Form-Based Content -->
+        <a class="dropdown-item" routerLink="/prompt">
+          <img src="assets/navbar_icons/form-icon.png" alt="Form Icon" />
+          <div class="tool-text">
+            <strong>Smart Form-Based Content</strong>
+            <p>Generate content based on quick form inputs.</p>
+          </div>
+        </a>
+
+        <!-- Upload Customer Dataset -->
+        <a class="dropdown-item" routerLink="/upload">
+          <img src="assets/navbar_icons/upload-icon.png" alt="Upload Icon" />
+          <div class="tool-text">
+            <strong>Upload Customer Dataset</strong>
+            <p>Upload Excel files and create content per group.</p>
+          </div>
+        </a>
+
+        <!-- Enhance My Content -->
+        <a class="dropdown-item" routerLink="/enhance">
+          <img src="assets/navbar_icons/enhance-icon.png" alt="Enhance Icon" />
+          <div class="tool-text">
+            <strong>Enhance My Content</strong>
+            <p>Let AI suggest improvements to your content.</p>
+          </div>
+        </a>
+
+        <!-- Inspire From Others -->
+        <a class="dropdown-item" routerLink="/inspire">
+          <img src="assets/navbar_icons/inspire-icon.png" alt="Inspire Icon" />
+          <div class="tool-text">
+            <strong>Inspire From Others</strong>
+            <p>See what others are doing in your market.</p>
+          </div>
+        </a>
+
+        <!-- Explore & Ideate -->
+        <a class="dropdown-item" routerLink="/explore">
+          <img src="assets/navbar_icons/explore-icon.png" alt="Explore Icon" />
+          <div class="tool-text">
+            <strong>Explore & Ideate</strong>
+            <p>Get AI-generated campaign and content ideas.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================
+       Right Section: Get Started Button
+       Visible only on homepage (router.url === '/')
+  ========================== -->
+  <div class="nav-right">
+    <button
+      class="get-started-btn"
+      routerLink="/prompt"
+      *ngIf="router.url === '/'"
+    >
+      Get Started
+    </button>
+  </div>
+
+</nav>

@@ -1,0 +1,248 @@
+<app-navbar></app-navbar> <!-- Navbar component at the top -->
+
+<!-- Load Material Icons and Material Symbols -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<!-- Back button to return to the previous results page -->
+<button class="back-btn" (click)="goBackToResults()">
+  <span class="material-symbols-outlined">arrow_back</span>
+</button>
+
+<div class="results-wrapper">
+  <!-- ================= LEFT: Segment Input Form ================= -->
+  <div class="results-left">
+    <h2>Segment Profile</h2>
+
+    <!-- Read-only section showing persona summary and audience size -->
+    <div class="readonly-section">
+      <legend><span class="material-icons">groups</span> Audience Segment</legend>
+      <div class="field-group">
+        <!-- Persona summary (read-only) -->
+        <label>Persona</label>
+        <textarea class="readonly-textarea" [value]="segment?.persona_summary || 'Not available'" readonly></textarea>
+
+        <!-- Audience size (read-only) -->
+        <label>Size</label>
+        <input [value]="segment?.members?.length || 0" class="readonly-input" disabled />
+      </div>
+    </div>
+
+    <!-- Campaign inputs form to regenerate content -->
+    <form (ngSubmit)="regenerateContent()">
+      <!-- Section: Campaign Inputs -->
+      <fieldset class="campaign-fieldset">
+        <legend><span class="material-icons">campaign</span> Campaign Inputs</legend>
+        <div class="input-grid">
+          <!-- Campaign objective -->
+          <label for="objective">Objective</label>
+          <input
+            id="objective"
+            type="text"
+            maxlength="100"
+            [(ngModel)]="formData.objective"
+            name="objective"
+            class="input-field"
+          />
+          <small class="char-limit">{{ formData.objective.length || 0 }}/100 characters</small>
+
+          <!-- Industry -->
+          <label for="industry">Industry</label>
+          <input
+            id="industry"
+            type="text"
+            maxlength="100"
+            [(ngModel)]="formData.industry"
+            name="industry"
+            class="input-field"
+          />
+          <small class="char-limit">{{ formData.industry.length || 0 }}/100 characters</small>
+
+          <!-- Funnel stage dropdown -->
+          <label for="marketing_funnel_stage">Marketing Funnel Stage</label>
+          <select
+            [(ngModel)]="formData.marketing_funnel_stage"
+            name="marketing_funnel_stage"
+            class="input-field"
+          >
+            <option>Awareness</option>
+            <option>Consideration</option>
+            <option>Conversion</option>
+            <option>Decision</option>
+          </select>
+
+          <!-- Past engagement dropdown -->
+          <label for="past_engagement">Past Engagement</label>
+          <select
+            [(ngModel)]="formData.past_engagement"
+            name="past_engagement"
+            class="input-field"
+          >
+            <option>High</option>
+            <option>Moderate</option>
+            <option>Low</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Section: Content Preferences -->
+      <fieldset>
+        <legend><span class="material-icons">palette</span> Content Preferences</legend>
+        <div class="field-group">
+          <!-- Platform -->
+          <label for="platform">Platform</label>
+          <select [(ngModel)]="formData.platform" name="platform" class="input-field">
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option>LinkedIn</option>
+            <option>TikTok</option>
+            <option>Email</option>
+            <option>Website</option>
+          </select>
+
+          <!-- Post type -->
+          <label for="post_type">Post Type</label>
+          <select [(ngModel)]="formData.post_type" name="post_type" class="input-field">
+            <option>Text</option>
+            <option>Image</option>
+            <option>Both</option>
+          </select>
+
+          <!-- Tone -->
+          <label for="tone">Tone</label>
+          <select [(ngModel)]="formData.tone" name="tone" class="input-field">
+            <option>Professional</option>
+            <option>Fun</option>
+            <option>Empathetic</option>
+            <option>Casual</option>
+            <option>Playful</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Section: Variants -->
+      <fieldset>
+        <legend><span class="material-icons">tune</span> Variants</legend>
+        <div class="field-group">
+          <!-- Slider for number of variants -->
+          <label>Number of Variants: {{ formData.num_variants }}</label>
+          <input type="range" min="1" max="3" [(ngModel)]="formData.num_variants" name="num_variants" />
+        </div>
+      </fieldset>
+
+      <!-- Button to trigger regeneration -->
+      <button type="submit" class="regen-button">
+        <span class="material-icons">autorenew</span> Regenerate
+      </button>
+    </form>
+  </div>
+
+  <!-- ================= LOADING SCREEN ================= -->
+  <div *ngIf="isLoading" class="loading-screen">
+    <span class="material-symbols-outlined spinner-icon">hourglass_top</span>
+    <p class="loading-quote">{{ currentQuote.quote }}</p>
+    <p class="loading-subtext">{{ currentQuote.author }}</p>
+    <p class="loading-subtext">Hang tight! We're processing your upload and generating your results...</p>
+  </div>
+
+  <!-- ================= RIGHT: Output Section ================= -->
+  <div class="segment-output">
+    <h2 class="variants-heading">
+      Results <span class="variant-count">({{ combinedVariants.length }} Variants)</span>
+    </h2>
+
+    <!-- Show original message before regeneration -->
+    <div *ngIf="showOriginalMessage && originalGeneratedPost && combinedVariants.length === 0" class="variant-box">
+      <h3>Original</h3>
+      <div class="single-tab-box">
+        <div class="single-tab-header captions-tab">
+          <span class="material-icons">text_fields</span>
+          Captions
+        </div>
+        <div class="scroll-box text-view">
+          <textarea [(ngModel)]="originalGeneratedPost" class="editable-text">{{ originalGeneratedPost }}</textarea>
+          <button class="download-button copy-button" [class.copied]="copiedIndex === -1" [disabled]="copiedIndex === -1" (click)="copyText(originalGeneratedPost, -1)">
+            <span class="material-icons">content_copy</span> {{ copiedIndex === -1 ? 'Copied!' : 'Copy' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Show regenerated variants -->
+    <div *ngIf="!showOriginalMessage && combinedVariants.length > 0">
+      <div *ngFor="let variant of combinedVariants; let i = index" class="variant-box enhanced-box">
+        <h3>Variant {{ i + 1 }}</h3>
+
+        <!-- Case: Both text & image -->
+        <div *ngIf="viewPostType === 'Both'">
+          <!-- Tabs for switching between captions & creatives -->
+          <div class="toggle-buttons">
+            <button (click)="variant.selectedTab = 'text'" [class.active]="variant.selectedTab === 'text'" *ngIf="variant.text">
+              <span class="material-icons">text_fields</span> Captions
+            </button>
+            <button (click)="variant.selectedTab = 'image'" [class.active]="variant.selectedTab === 'image'" *ngIf="variant.image">
+              <span class="material-icons">image</span> Creatives
+            </button>
+          </div>
+
+          <!-- Captions tab content -->
+          <div *ngIf="variant.selectedTab === 'text' && variant.text" class="single-tab-box">
+            <div *ngIf="viewPostType !== 'Both'" class="single-tab-header captions-tab">
+              <span class="material-icons">text_fields</span> Captions
+            </div>
+            <div class="scroll-box text-view">
+              <textarea [(ngModel)]="variant.text" class="editable-text"></textarea>
+              <button class="download-button copy-button"
+                      [class.copied]="copiedIndex === i"
+                      [disabled]="copiedIndex === i"
+                      (click)="copyText(variant.text, i)">
+                <span class="material-icons">content_copy</span>
+                {{ copiedIndex === i ? 'Copied!' : 'Copy' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Creatives tab content -->
+          <div *ngIf="variant.selectedTab === 'image' && variant.image" class="single-tab-box">
+            <!-- no header here in Both mode -->
+            <div class="scroll-box image-view">
+              <img [src]="variant.image" alt="Generated Image" />
+              <button
+                class="download-button"
+                (click)="downloadImage(variant.image || '', 'variant-' + (i + 1) + '.png')"
+              >
+                <span class="material-icons">download</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case: Text only -->
+        <div *ngIf="viewPostType === 'Text' && variant.text" class="single-tab-box">
+          <div class="single-tab-header captions-tab">
+            <span class="material-icons">text_fields</span> Captions
+          </div>
+          <div class="scroll-box text-view">
+            <textarea [(ngModel)]="variant.text" class="editable-text">{{ variant.text }}</textarea>
+            <button class="download-button copy-button" [class.copied]="copiedIndex === i" [disabled]="copiedIndex === i" (click)="copyText(variant.text, i)">
+              <span class="material-icons">content_copy</span> {{ copiedIndex === i ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Case: Image only -->
+        <div *ngIf="viewPostType === 'Image' && variant.image" class="single-tab-box">
+          <div class="single-tab-header creatives-tab">
+            <span class="material-icons">image</span> Creatives
+          </div>
+          <div class="scroll-box image-view">
+            <img [src]="variant.image" alt="Generated Image" />
+            <button class="download-button" (click)="downloadImage(variant.image || '', 'variant-' + (i + 1) + '.png')">
+              <span class="material-icons">download</span> Download
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,179 @@
+<!-- ==========================
+ Navbar (Shared Across Pages)
+ ========================== -->
+<app-navbar></app-navbar>
+
+<!-- ==========================
+ Hero Section
+ Purpose: Eye-catching introduction with main tagline, short description,
+          primary CTA button, and a supporting hero image.
+ ========================== -->
+<section class="hero-section text-center py-5" data-aos="fade-up">
+  <div class="hero-inner">
+    <h1 class="display-4 fw-bold mb-3">Your AI-Powered Content Partner</h1>
+    <p class="lead text-muted mb-4">
+      Instantly craft personalized content, automate messaging, and scale marketing all in one place.
+    </p>
+    <!-- Main CTA Button -->
+    <button class="cta-button" routerLink="/prompt">Try Our Editor</button>
+    <!-- Supporting Hero Illustration -->
+    <div class="mt-4">
+      <img src="assets/home/Marketing.png" alt="AI Illustration"
+           class="img-fluid rounded shadow hero-img" />
+    </div>
+  </div>
+</section>
+
+<!-- ==========================
+ Floating Navigation Pills
+ Purpose: Quick links to scroll to different sections of the homepage.
+ Highlighting shows the currently active section.
+ ========================== -->
+<nav class="section-nav">
+  <div class="section-nav-inner">
+    <a (click)="scrollToSection('overview')" [class.active]="activeSection === 'overview'" class="nav-link">Overview</a>
+    <a (click)="scrollToSection('how-it-works')" [class.active]="activeSection === 'how-it-works'" class="nav-link">How It Works</a>
+    <a (click)="scrollToSection('use-cases')" [class.active]="activeSection === 'use-cases'" class="nav-link">Use Cases</a>
+    <a (click)="scrollToSection('faq')" [class.active]="activeSection === 'faq'" class="nav-link">FAQ</a>
+    <a (click)="scrollToSection('contact')" [class.active]="activeSection === 'contact'" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<!-- ==========================
+ Overview Section
+ Purpose: Quick pitch about the platform’s benefits.
+ Layout: Left side - Heading, Right side - Description & CTA.
+ ========================== -->
+<section id="overview" class="section-block bg-light">
+  <div class="overview-layout">
+    <!-- Left Column -->
+    <div class="overview-left">
+      <h2>Smart marketing, simplified.</h2>
+    </div>
+    <!-- Right Column -->
+    <div class="overview-right">
+      <p>
+        Leverage the power of AI to generate personalized content, 
+         segment your audience, and optimize campaigns all in one intuitive platform built to elevate your brand.
+      </p>
+      <button class="cta-btn" routerLink="/prompt">Get Started</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================
+ How It Works Section
+ Purpose: Step-by-step visual explanation of the workflow.
+ Layout: Grid of 4 steps with image and description.
+ ========================== -->
+<section id="how-it-works" class="how-it-works-section">
+  <div class="how-it-works-grid">
+    
+    <!-- Step 1 -->
+    <div class="how-step">
+      <img src="assets/home/step_1.png" alt="Step 1" class="how-img">
+      <div class="how-text">
+        <h3>Step 1: Smart Form</h3>
+        <p>Answer quick questions about your brand and campaign to guide content creation.</p>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="how-step">
+      <img src="assets/home/step_2.png" alt="Step 2" class="how-img">
+      <div class="how-text">
+        <h3>Step 2: Generate & Refine</h3>
+        <p>CreateAI generates a personalized promotional message and image. Refine in the editor and download for posting.</p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="how-step">
+      <img src="assets/home/step_3.png" alt="Step 3" class="how-img">
+      <div class="how-text">
+        <h3>Step 3: Upload Dataset</h3>
+        <p>Upload your customer Excel file and your campaign inputs. We instantly cluster your audience and create segment personas.</p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="how-step">
+      <img src="assets/home/step_4.png" alt="Step 4" class="how-img">
+      <div class="how-text">
+        <h3>Step 4: Segment Content</h3>
+        <p>Generate and edit personalized content for each segment, then download ready-to-post assets.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================
+ Use Cases Section
+ Purpose: Show practical applications of the platform.
+ Layout: Grid of feature cards with title + description.
+ ========================== -->
+<section id="use-cases">
+  <div class="use-cases-grid">
+
+    <div class="use-case-card">
+      <h3>Emotionally Aligned Messaging</h3>
+      <p>Generate content that adapts to your audience’s mindset from fun to professional using tone selection and funnel stage to ensure every message hits the right emotional note.</p>
+    </div>
+
+    <div class="use-case-card">
+      <h3>Loyalty-Based Personalization</h3>
+      <p>Craft exclusive-feeling messages by using inputs like loyalty tier and join month. This makes customers feel seen, appreciated, and personally valued across different stages of their journey.</p>
+    </div>
+
+    <div class="use-case-card">
+      <h3>Platform-Responsive Copy</h3>
+      <p>Tailor content for Instagram, LinkedIn, or Email with tone, structure, and formatting that match the platform’s communication style making sure your content feels natural everywhere it appears.</p>
+    </div>
+
+    <div class="use-case-card">
+      <h3>Segment-Aware Message Refinement</h3>
+      <p>Upload a customer dataset to auto-discover segments, generate tailored content for each, and refine messages per segment using editable inputs; a workflow that bridges personalization with control.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================
+ FAQ Section
+ Purpose: Interactive question-and-answer section.
+ Uses *ngFor to loop through FAQ items and toggle answers.
+ ========================== -->
+<section id="faq" class="section-block bg-light">
+  <div class="faq-header">Frequently Asked Questions</div>
+  <div class="faq-list">
+    <!-- Loop through faqs array -->
+    <div class="faq-item" *ngFor="let faq of faqs; let i = index">
+      <!-- Click toggles this FAQ open/close -->
+      <div class="faq-question" (click)="toggleFaq(i)">
+        {{ faq.question }}
+        <span class="faq-icon">{{ activeFaq === i ? '-' : '+' }}</span>
+      </div>
+      <!-- Only visible if activeFaq matches index -->
+      <div class="faq-answer" [class.active]="activeFaq === i">
+        {{ faq.answer }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================
+ Contact Section
+ Purpose: Allow users to submit feedback.
+ Includes Name, Email, and Message inputs with a submit button.
+ ========================== -->
+<section id="contact" class="section-block contact-section bg-dark text-white">
+  <h2>Have Feedback?</h2>
+  <p>We'd love to hear from you. Let us know how we can make Create AI better for you.</p>
+  <form>
+    <input type="text" placeholder="Your Name" />
+    <input type="email" placeholder="Your Email" />
+    <textarea placeholder="Your Message"></textarea>
+    <button type="submit">Send Feedback</button>
+  </form>
+</section>

@@ -1,0 +1,58 @@
+/* CARD WRAPPER (same as prompt‐container) */
+.prompt-container.loading-screen {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2.5rem 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* SPINNER ICON */
+.spinner-icon {
+  display: block;
+  font-size: 3rem;
+  color: #6366f1;
+  animation: spin 1.3s linear infinite;
+  margin: 0 auto 1.25rem;
+}
+
+/* QUOTE TEXT */
+.loading-quote {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+}
+
+/* SOURCE LINE */
+.loading-source {
+  font-size: 1rem;
+  color: #6366f1;
+  margin: 0 0 1rem;
+}
+.loading-source a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* SUBTEXT */
+.loading-subtext {
+  font-size: 1rem;
+  color: #6b7280;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ANIMATIONS */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

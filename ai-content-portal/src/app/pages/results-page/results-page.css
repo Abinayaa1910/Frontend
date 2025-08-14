@@ -1,0 +1,408 @@
+.results-wrapper {
+  display: flex; /* Layout: left and right panels side by side */
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  gap: 2rem;
+  box-sizing: border-box;
+  background-color: #f5f7fa; /* Light gray background */
+  min-height: 100vh; /* Full viewport height */
+  align-items: flex-start; /* Align items to the top */
+}
+
+.results-left {
+  width: 40%; /* Left panel takes 40% */
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: sticky; /* Stays visible on scroll */
+  top: 80px;
+  height: calc(100vh - 80px); /* Full height minus navbar */
+  overflow-y: auto; /* Scroll if content overflows */
+}
+
+/* Headings for the input card */
+.input-card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Spacing between input groups */
+.input-group {
+  margin-bottom: 1rem;
+}
+
+/* Label styles */
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #444;
+}
+
+/* Text inputs & selects */
+.input-group input,
+.input-group select {
+  box-sizing: border-box; /* Padding/border included in size */
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  height: 2.5rem; /* Ensures uniform height */
+  background: #fafafa;
+}
+
+/* Regenerate button (left panel) */
+.regen-button {
+  margin-top: 1.2rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #4a69bd;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.regen-button:hover {
+  background-color: #3c56a3;
+}
+
+/* Right panel styling */
+.results-right {
+  width: 60%; /* Right panel takes 60% */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.results-right h2 {
+  font-size: 1.6rem;
+  color: #333;
+}
+
+/* Stack variant boxes vertically with spacing */
+.variant-boxes-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Each variant box container */
+.variant-box {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 500px; /* Ensure enough height */
+}
+
+.variant-box h3 {
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+/* Toggle buttons container for text/image tabs */
+.toggle-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  width: 100%;
+  background: #f4f4f6;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Toggle button default state */
+.toggle-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.75rem 0;
+  background-color: #f4f4f6; /* Neutral inactive bg */
+  color: #555;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', sans-serif;
+  border-right: 1px solid #e0e0e0;
+}
+
+.toggle-buttons button .material-icons {
+  font-size: 20px;
+  color: #888; /* Muted icon color */
+}
+
+/* Active/selected toggle button */
+.toggle-buttons button.active {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+}
+
+.toggle-buttons button.active .material-icons {
+  color: white;
+}
+
+/* Scrollable content area */
+.scroll-box {
+  overflow-y: auto;
+  max-height: 350px;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fafafa;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Images inside scroll box */
+.scroll-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+/* Paragraph text in scroll box */
+.scroll-box p {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Download/Copy button styling */
+.download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.4rem;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.download-button .material-icons {
+  font-size: 18px;
+  color: white;
+}
+
+.download-button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
+}
+
+/* Fieldset container for each input section */
+fieldset {
+  border: none;
+  background: #f9fafb;
+  border-left: 5px solid #6366f1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+/* Fieldset legend/title */
+legend {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Styled input fields */
+.input-field {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  min-height: 2.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+/* Captions and creatives section headings */
+.text-caption-section h4,
+.image-caption-section h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Single tab container */
+.single-tab-box {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Single tab header styles */
+.single-tab-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+}
+
+.single-tab-header .material-icons {
+  font-size: 20px;
+  color: white;
+}
+
+/* Captions tab color */
+.captions-tab {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+}
+
+/* Creatives tab color (same gradient for now) */
+.creatives-tab {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+}
+
+/* Editable text area for captions */
+.editable-text {
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  background: #fafafa;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+/* Copy button matches download button style */
+.download-button,
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.4rem;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: "Segoe UI", sans-serif;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Copied state */
+.copy-button.copied {
+  background: #36c6f1;
+  cursor: default;
+}
+
+/* Disabled/copied success state */
+.copy-button:disabled,
+.copy-button.copied {
+  background: #16a34a; /* Green success */
+  cursor: default;
+}
+
+/* Character count label under inputs */
+.char-limit {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.01rem;
+  margin-bottom: -0.7rem;
+  text-align: right;
+  padding-right: 0.15rem;
+  line-height: 1;
+  display: block;
+}
+
+/* Group labels and fields together */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1.4rem;
+}
+
+.field-group label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+  color: #111827;
+}
+
+/* Loading screen container */
+.loading-screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center */
+  align-items: center;     /* Horizontally center */
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Spinner icon animation */
+.spinner-icon {
+  display: inline-block;
+  font-size: 3rem;
+  color: #6366f1;
+  animation: spin 1.3s linear infinite;
+  margin-bottom: 1.25rem;
+}
+
+/* Loading quote */
+.loading-quote {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+/* Loading subtext */
+.loading-subtext {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+/* Spin keyframes */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

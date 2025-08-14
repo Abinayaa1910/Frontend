@@ -1,0 +1,305 @@
+<app-navbar></app-navbar> <!-- Navbar component -->
+
+<!-- Google Fonts + Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<div class="results-wrapper">
+
+  <!-- LEFT: User Input Summary -->
+  <div class="results-left">
+    <h2>Your Inputs</h2>
+
+    <!-- Form for resubmitting inputs -->
+    <form (ngSubmit)="onResubmit()">
+
+      <!-- Section 1: User Details -->
+      <fieldset>
+        <legend><span class="material-icons">person</span> User Details</legend>
+        <div class="field-group">
+          <!-- Gender selection -->
+          <label for="gender">Gender</label>
+          <select [(ngModel)]="formData.gender" name="gender" id="gender" class="input-field">
+            <option disabled>Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>  
+
+          <!-- Location input with auto-capitalization -->
+          <label for="location">Location</label>
+          <input
+            [(ngModel)]="formData.location"
+            (ngModelChange)="autoCapitalizeField('location')"
+            name="location"
+            id="location"
+            class="input-field"
+            maxlength="35"
+            required
+            #locationRef="ngModel"
+            placeholder="e.g. Tampines"
+          />
+          <!-- Character count -->
+          <small class="char-limit">{{ formData.location?.length || 0 }}/35 characters</small>
+          <!-- Validation error -->
+          <span *ngIf="locationRef.invalid && locationRef.touched" class="error">Location is required</span>
+
+          <!-- Loyalty tier selection -->
+          <label for="loyalty_tier">Loyalty Tier</label>
+          <select [(ngModel)]="formData.loyalty_tier" name="loyalty_tier" id="loyalty_tier" class="input-field">
+            <option disabled>Select</option>
+            <option>Silver</option>
+            <option>Gold</option>
+            <option>Platinum</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Section 2: Membership Info -->
+      <fieldset>
+        <legend><span class="material-icons">calendar_today</span> Membership Info</legend>
+        <div class="field-group">
+          <!-- Join Year selection -->
+          <label for="join_year">Join Year</label>
+          <select [(ngModel)]="formData.join_year" name="join_year" id="join_year" class="input-field">
+            <option disabled>Select</option>
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+
+          <!-- Join Month selection -->
+          <label for="join_month">Join Month</label>
+          <select [(ngModel)]="formData.join_month" name="join_month" id="join_month" class="input-field">
+            <option disabled>Select Month</option>
+            <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Section 3: Campaign Inputs -->
+      <fieldset>
+        <legend><span class="material-icons">campaign</span> Campaign Inputs</legend>
+        <div class="field-group">
+          <!-- Campaign objective input -->
+          <label for="objective">Objective</label>
+          <input
+            id="objective"
+            type="text"
+            maxlength="100"
+            [(ngModel)]="formData.objective"
+            name="objective"
+            class="input-field"
+            placeholder="e.g. Increase customer engagement"
+            (ngModelChange)="autoCapitalizeField('objective')"
+          />
+          <small class="char-limit">
+            {{ formData.objective?.length || 0 }}/100 characters
+          </small>
+
+          <!-- Industry input -->
+          <label for="industry">Industry</label>
+          <input
+            id="industry"
+            type="text"
+            maxlength="100"
+            [(ngModel)]="formData.industry"
+            name="industry"
+            class="input-field"
+            placeholder="e.g. Retail, Healthcare"
+            (ngModelChange)="autoCapitalizeField('industry')"
+          />
+          <small class="char-limit">
+            {{ formData.industry?.length || 0 }}/100 characters
+          </small>
+
+          <!-- Funnel stage selection -->
+          <label for="marketing_funnel_stage">Funnel Stage</label>
+          <select [(ngModel)]="formData.marketing_funnel_stage" name="marketing_funnel_stage" id="marketing_funnel_stage" class="input-field">
+            <option disabled>Select</option>
+            <option>Awareness</option>
+            <option>Consideration</option>
+            <option>Decision</option>
+            <option>Loyalty</option>
+          </select>
+
+          <!-- Past engagement selection -->
+          <label for="past_engagement">Past Engagement</label>
+          <select [(ngModel)]="formData.past_engagement" name="past_engagement" id="past_engagement" class="input-field">
+            <option disabled>Select</option>
+            <option>High</option>
+            <option>Moderate</option>
+            <option>Low</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Section 4: Content Preferences -->
+      <fieldset>
+        <legend><span class="material-icons">palette</span> Content Preferences</legend>
+        <div class="field-group">
+          <!-- Platform selection -->
+          <label for="platform">Platform</label>
+          <select [(ngModel)]="formData.platform" name="platform" id="platform" class="input-field">
+            <option disabled>Select</option>
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option>LinkedIn</option>
+            <option>TikTok</option>
+            <option>Email</option>
+            <option>Website</option>
+          </select>
+
+          <!-- Post type selection -->
+          <label for="post_type">Post Type</label>
+          <select [(ngModel)]="formData.post_type" name="post_type" id="post_type" class="input-field">
+            <option disabled>Select</option>
+            <option>Text</option>
+            <option>Image</option>
+            <option>Both</option>
+          </select>
+
+          <!-- Tone selection -->
+          <label for="tone">Tone</label>
+          <select [(ngModel)]="formData.tone" name="tone" id="tone" class="input-field">
+            <option disabled>Select</option>
+            <option>Professional</option>
+            <option>Fun</option>
+            <option>Empathetic</option>
+            <option>Casual</option>
+            <option>Playful</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Section 5: Variants -->
+      <fieldset>
+        <legend><span class="material-icons">tune</span> Variants</legend>
+        <div class="field-group">
+          <!-- Slider to select number of content variants -->
+          <label>Number of Variants: {{ formData.num_variants }}</label>
+          <input type="range" min="1" max="3" [(ngModel)]="formData.num_variants" name="num_variants" />
+        </div>
+      </fieldset>
+
+      <!-- Button to regenerate results -->
+      <button type="submit" class="regen-button">
+        <span class="material-icons">autorenew</span> Regenerate
+      </button>
+    </form>
+  </div>
+
+  <!-- RIGHT: Output -->
+  <!-- Loading screen displayed while regenerating -->
+  <div *ngIf="isLoading" class="loading-screen">
+    <span class="material-symbols-outlined spinner-icon">hourglass_top</span>
+    <p class="loading-quote">{{ currentQuote.quote }}</p>
+    <p class="loading-subtext">{{ currentQuote.author }}</p>
+    <p class="loading-subtext">Hang tight! We're processing your upload and generating your results...</p>
+  </div>
+
+  <!-- Results section when not loading -->
+  <div class="results-right" *ngIf="!isLoading">
+    <h2>Results ({{ formData.num_variants }} Variants)</h2>
+
+    <!-- Display stacked variant boxes -->
+    <div class="variant-boxes-stacked">
+      <div *ngFor="let variant of combinedVariants; let i = index" class="variant-box enhanced-box">
+        <h3>Variant {{ i + 1 }}</h3>
+
+        <!-- If post type is 'Both', show tabs -->
+        <div *ngIf="postType === 'Both'">
+          <div class="toggle-buttons">
+            <!-- Tab for captions -->
+            <button (click)="variant.selectedTab = 'text'" [class.active]="variant.selectedTab === 'text'" *ngIf="variant.text">
+              <span class="material-icons">text_fields</span> Captions
+            </button>
+            <!-- Tab for creatives -->
+            <button (click)="variant.selectedTab = 'image'" [class.active]="variant.selectedTab === 'image'" *ngIf="variant.image">
+              <span class="material-icons">image</span> Creatives
+            </button>
+          </div>
+
+          <!-- Captions view -->
+          <div class="scroll-box text-view" *ngIf="variant.selectedTab === 'text' && variant.text">
+            <textarea
+              [(ngModel)]="variant.text"
+              [ngModelOptions]="{standalone: true}"
+              class="editable-text"
+              rows="8"
+              spellcheck="true"
+              placeholder="Edit your caption here"
+            ></textarea>
+            <button
+              class="download-button copy-button"
+              [class.copied]="copiedIndex === i"
+              [disabled]="copiedIndex === i"
+              type="button"
+              (click)="copyText(variant.text, i)"
+            >
+              <span class="material-icons">content_copy</span>
+              {{ copiedIndex === i ? 'Copied!' : 'Copy' }}
+            </button>
+          </div>
+
+          <!-- Creatives view -->
+          <div class="scroll-box image-view" *ngIf="variant.selectedTab === 'image' && variant.image">
+            <img [src]="variant.image" alt="Generated Image" />
+            <button
+              class="download-button"
+              type="button"
+              (click)="downloadImage(variant.image || '', 'variant.png')"
+            >
+              <span class="material-icons">download</span>
+              Download
+            </button>
+          </div>
+        </div>
+
+        <!-- Text-only variant -->
+        <div *ngIf="postType?.toLowerCase() === 'text' && variant.text">
+          <div class="single-tab-box">
+            <div class="single-tab-header captions-tab">
+              <span class="material-icons">text_fields</span> Captions
+            </div>
+            <div class="scroll-box text-view">
+              <textarea
+                [(ngModel)]="variant.text"
+                [ngModelOptions]="{standalone: true}"
+                class="editable-text"
+                rows="8"
+                spellcheck="true"
+              ></textarea>
+
+              <!-- Copy button -->
+              <button
+                class="download-button copy-button"
+                [class.copied]="copiedIndex === i"
+                [disabled]="copiedIndex === i"
+                type="button"
+                (click)="copyText(variant.text, i)"
+              >
+                <span class="material-icons">content_copy</span>
+                {{ copiedIndex === i ? 'Copied!' : 'Copy' }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image-only variant -->
+        <div *ngIf="postType?.toLowerCase() === 'image' && variant.image">
+          <div class="single-tab-box">
+            <div class="single-tab-header creatives-tab">
+              <span class="material-icons">image</span> Creatives
+            </div>
+            <div class="scroll-box image-view">
+              <img [src]="variant.image" alt="Generated Image" />
+              <button class="download-button" (click)="downloadImage(variant.image || '', 'variant.png')">
+                <span class="material-icons">download</span> Download
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

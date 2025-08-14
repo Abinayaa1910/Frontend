@@ -1,0 +1,14 @@
+// TypeScript configuration for unit test files.
+// Includes only *.spec.ts files and sets up Jasmine types.
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jasmine"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

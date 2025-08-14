@@ -1,0 +1,70 @@
+<!-- Navbar component at the top of the page -->
+<app-navbar></app-navbar>
+
+<!-- Google Material Icons & Symbols for UI icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+<div class="results-screen">
+  <!-- Header section for the results page -->
+  <div class="results-header">
+    <!-- Icon showing "groups" to indicate customer segmentation -->
+    <span class="material-symbols-outlined results-icon">groups</span>
+
+    <!-- Main heading -->
+    <h2>Customer Segments & Personalized Content</h2>
+
+    <!-- Brief explanation of what the user is seeing -->
+    <p class="results-subtext">
+      We’ve grouped your customers into meaningful segments based on shared characteristics.
+      Each segment includes a personalized marketing message to help you engage them more effectively.
+    </p>
+
+    <!-- AI content generation disclaimer -->
+    <p class="ai-note">
+      🤖 <strong>Note:</strong> The personalized content is AI-generated and may not be perfect. 
+      Feel free to refine or regenerate it to better suit your brand voice or campaign needs.
+    </p>
+  </div>
+
+  <!-- Loop through all clusters returned from backend -->
+  <div *ngFor="let cluster of clusters; let i = index" class="cluster-card">
+    <!-- Segment title showing its number and persona summary -->
+    <h3 class="cluster-title">
+       <strong>Segment {{ i + 1 }} –</strong> {{ cluster.persona_summary }}
+    </h3>
+
+    <!-- Display number of members in this segment -->
+    <p class="member-count">
+      <strong>Audience Size:</strong> {{ cluster.members.length }}
+    </p>
+
+    <!-- Show the default recommended post if available -->
+    <div *ngIf="cluster.default_post" class="default-post">
+      <h4 class="post-label">Tailored Content Recommendation:</h4>
+      <p class="post-content">{{ cluster.default_post }}</p>
+    </div>
+
+    <!-- Button to refine or personalize content for this segment -->
+    <button
+      type="button"
+      class="segment-refine-btn"
+      (click)="generatePost(cluster)"
+    >
+      <span class="material-icons">auto_fix_high</span>
+      Refine or Personalize for This Segment
+    </button>
+
+    <!-- If a generated post exists for this cluster, display it -->
+    <div *ngIf="generatedPosts[cluster.cluster_id]" class="generated-post">
+      <h4>📝 Generated Marketing Post:</h4>
+      <p>{{ generatedPosts[cluster.cluster_id] }}</p>
+
+      <!-- Random relevant image from Unsplash based on segment id -->
+      <img
+        [src]="'https://source.unsplash.com/featured/?marketing,group' + cluster.cluster_id"
+        [alt]="'Generated image for segment ' + (i + 1)"
+      />
+    </div>
+  </div>
+</div>

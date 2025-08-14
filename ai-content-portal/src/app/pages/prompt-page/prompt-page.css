@@ -1,0 +1,254 @@
+/* ==========================
+   Main Prompt Form Container
+   ========================== */
+.prompt-container {
+  max-width: 900px;
+  margin: 1rem auto;
+  padding: 2.5rem 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.prompt-container h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: 700;
+  color: #111827;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+}
+
+.subtext {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 2.5rem;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+/* ==========================
+   Section Container (Fieldsets)
+   ========================== */
+fieldset {
+  border: none;
+  background: #f9fafb;
+  border-left: 5px solid #6366f1; /* violet accent strip */
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+legend {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+legend i {
+  font-size: 1.3rem;
+  color: #6366f1;
+}
+
+/* ==========================
+   Form Layout
+   ========================== */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.form-group {
+  flex: 1 1 30%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+input, select, textarea {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* Focus highlight */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Textarea adjustments */
+textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* ==========================
+   Validation Error Styles
+   ========================== */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  font-weight: 500;
+}
+
+/* ==========================
+   Submit Button
+   ========================== */
+.generate-btn {
+  margin-top: 2rem;
+  background-color: #6366f1;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+.generate-btn:hover {
+  background-color: #4f46e5; /* darker violet */
+}
+
+/* ==========================
+   Results & Loading States
+   ========================== */
+.loading-screen,
+.result-screen {
+  max-width: 700px;
+  margin: 3rem auto;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.loading-screen img {
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.result-screen {
+  background: #f3f4f6;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.generated-post {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 1.5rem;
+}
+
+.result-section {
+  margin-top: 30px;
+}
+
+.text-card {
+  background: #f7f7f7;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.image-grid, .both-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.image-card, .variant-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.image-card img, .variant-card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+/* ==========================
+   Buttons in Results Section
+   ========================== */
+button {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background: #4f46e5;
+}
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ==========================
+   Character Counter Styling
+   ========================== */
+.char-limit {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 4px;
+  text-align: right;
+  display: block;
+}
+
+/* ==========================
+   Grey Placeholder for Selects
+   ========================== */
+select.placeholder-grey {
+  color: #9ca3af;
+}
+
+/* Default option text color for real choices */
+select option {
+  color: #111827;
+}
+
+/* Placeholder option inside dropdown */
+select option[disabled] {
+  color: #9ca3af;
+}

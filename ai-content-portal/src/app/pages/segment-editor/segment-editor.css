@@ -1,0 +1,433 @@
+/* =========================================================
+   SEGMENT EDITOR PAGE CSS
+   ========================================================= */
+
+/* ---------- GLOBAL LAYOUT ---------- */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Prevent page-level scroll */
+}
+
+.results-wrapper {
+  display: flex;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  gap: 2rem;
+  box-sizing: border-box;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden; /* No scroll at wrapper level */
+}
+
+/* ---------- LEFT & RIGHT PANELS ---------- */
+.results-left {
+  flex: 0 0 40%;
+  height: 100%;
+  overflow-y: auto; /* Scroll inside left panel only */
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.segment-output {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto; /* Optional scroll inside right panel */
+  padding-left: 2rem;
+}
+
+/* ---------- FORM ELEMENTS & FIELDS ---------- */
+.input-field,
+select,
+.readonly-input,
+.readonly-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  color: #000000;
+}
+
+/* Read-only elements */
+.readonly-input,
+.readonly-textarea {
+  background-color: #f0f0f0;
+}
+
+/* Editable elements */
+.input-field,
+select {
+  background-color: #ffffff;
+}
+
+/* Fieldset containers */
+fieldset {
+  border: none;
+  background: #f9fafb;
+  border-left: 5px solid #6366f1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+legend {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+label {
+  display: block;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #000000;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1.4rem;
+}
+
+.field-group label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+  color: #111827;
+}
+
+/* Character counter under inputs */
+.char-limit {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.1rem;
+  margin-bottom: -0.6rem;
+  text-align: right;
+  padding-right: 0.15rem;
+  line-height: 1;
+  display: block;
+}
+
+/* Range slider */
+.input-group input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  margin-top: 0.25rem;
+  margin-bottom: 0.2rem;
+  cursor: pointer;
+}
+
+/* ---------- BUTTONS ---------- */
+/* Primary regenerate button */
+.regen-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #4e47e5;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+.regen-button:hover {
+  background-color: #3c36c4;
+}
+
+/* Back button */
+.back-btn {
+  background-color: transparent;
+  color: #6366f1;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+}
+.back-btn:hover {
+  text-decoration: underline;
+  color: #4f46e5;
+}
+.back-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* Copy button */
+.copy-button {
+  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #ffffff;
+  background: #6366f1;
+  transition: background 0.3s;
+}
+.copy-button:hover {
+  background: #4f46e5;
+}
+/* Copied state */
+.copy-button:disabled,
+.copy-button.copied {
+  background: #16a34a; /* Green success */
+  cursor: default;
+}
+
+/* Download button (gradient style) */
+.download-button,
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.4rem;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+  margin-top: 1rem;
+}
+.download-btn {
+  padding: 0.6rem 1.8rem;
+  font-size: 1rem;
+}
+.download-btn:hover,
+.download-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+}
+.download-button .material-icons,
+.download-btn .material-icons {
+  font-size: 18px;
+  color: white;
+}
+
+/* ---------- VARIANT BOXES ---------- */
+.variant-box {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 650px;
+}
+.variant-box h3 {
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+/* Toggle buttons for switching between tabs */
+.toggle-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  background: #f4f4f6;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.toggle-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.75rem 0;
+  background-color: #f4f4f6;
+  color: #555;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', sans-serif;
+  border-right: 1px solid #e0e0e0;
+}
+.toggle-buttons button .material-icons {
+  font-size: 20px;
+  color: #888;
+}
+.toggle-buttons button.active {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+}
+.toggle-buttons button.active .material-icons {
+  color: white;
+}
+
+/* ---------- SCROLLABLE BOXES ---------- */
+.scroll-box {
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 1.2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background: #ffffff;
+  transition: all 0.3s ease-in-out;
+  font-size: 1rem;
+  color: #1a1a1a;
+  line-height: 1.8;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+.scroll-box img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  margin-top: 0.75rem;
+  display: block;
+}
+.scroll-box p {
+  white-space: pre-wrap;
+  line-height: 1.8;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* ---------- ORIGINAL POST BOX ---------- */
+.original-post-box {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  padding: 1rem 1.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  transition: box-shadow 0.2s ease;
+  font-size: 1rem;
+  line-height: 1.8;
+  font-family: 'Segoe UI', sans-serif;
+}
+.original-post-box:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.original-post-box h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.original-post-box p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #222;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ---------- SINGLE TAB CONTAINER ---------- */
+.single-tab-box {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+}
+.single-tab-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+.single-tab-header.captions-tab {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+}
+.single-tab-header.creatives-tab {
+  background: linear-gradient(to right, #6366f1, #3b82f6);
+  color: white;
+}
+.single-tab-box .scroll-box {
+  border-top: none;
+  padding: 1rem;
+  max-height: 350px;
+}
+
+/* Editable textarea inside tabs */
+.editable-text {
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  background: #fafafa;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+/* ---------- LOADING SCREEN ---------- */
+.loading-screen {
+  text-align: center;
+  padding: 4rem 2rem;
+  animation: fadeIn 0.4s ease-in-out;
+}
+.spinner-icon {
+  display: inline-block;
+  font-size: 3rem;
+  color: #6366f1;
+  animation: spin 1.3s linear infinite;
+  margin-bottom: 1.25rem;
+}
+.loading-quote {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+.loading-subtext {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
