@@ -93,8 +93,7 @@ src/
         results-page.component.ts  logic for Workflow 1 final page  editable content
         results-page.component.html layout showing
                                      Left   snapshot of Smart Form inputs
-                                     Center editable text content
-                                     Right  generated image or other content
+                                     Right  generated image or other content, editable text content
         results-page.component.css styles for results page
 
       upload-page/
@@ -107,8 +106,7 @@ src/
                                       displays list of segments and generated content per segment
         upload-results.component.html layout showing
                                        Left   segment list and filters
-                                       Center selected segment content
-                                       Right  utilities or actions
+                                       Right  utilities or actions and selected segment content
         upload-results.component.css styles for upload results page
 
       segment-editor/
