@@ -57,22 +57,23 @@
 
 /* Regenerate button (left panel) */
 .regen-button {
-  margin-top: 1.2rem;
-  padding: 0.6rem 1.2rem;
-  background-color: #4a69bd;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #4e47e5;
   color: white;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.95rem;
+  padding: 0.6rem 1.2rem;
   border: none;
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
 }
-
 .regen-button:hover {
-  background-color: #3c56a3;
+  background-color: #3c36c4;
 }
-
 /* Right panel styling */
 .results-right {
   width: 60%; /* Right panel takes 60% */
