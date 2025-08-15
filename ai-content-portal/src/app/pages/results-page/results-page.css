@@ -56,6 +56,7 @@
 }
 
 /* Regenerate button (left panel) */
+
 .regen-button {
   display: inline-flex;
   align-items: center;
@@ -211,6 +212,12 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
   transform: translateY(-1px);
 }
+
+.download-button.downloaded {
+  background: #16a34a; /* Green success */
+  cursor: default;
+}
+
 
 /* Fieldset container for each input section */
 fieldset {

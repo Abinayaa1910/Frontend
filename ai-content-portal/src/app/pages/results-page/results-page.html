@@ -246,12 +246,14 @@
             <img [src]="variant.image" alt="Generated Image" />
             <button
               class="download-button"
+              [class.downloaded]="downloadedIndex === i"
               type="button"
-              (click)="downloadImage(variant.image || '', 'variant.png')"
+              (click)="handleDownload(variant.image || '', 'variant.png', i)"
             >
               <span class="material-icons">download</span>
-              Download
+              {{ downloadedIndex === i ? 'Downloaded!' : 'Download' }}
             </button>
+
           </div>
         </div>
 
@@ -293,9 +295,16 @@
             </div>
             <div class="scroll-box image-view">
               <img [src]="variant.image" alt="Generated Image" />
-              <button class="download-button" (click)="downloadImage(variant.image || '', 'variant.png')">
-                <span class="material-icons">download</span> Download
+              <button
+                class="download-button"
+                [class.downloaded]="downloadedIndex === i"
+                type="button"
+                (click)="handleDownload(variant.image || '', 'variant.png', i)"
+              >
+                <span class="material-icons">download</span>
+                {{ downloadedIndex === i ? 'Downloaded!' : 'Download' }}
               </button>
+
             </div>
           </div>
         </div>

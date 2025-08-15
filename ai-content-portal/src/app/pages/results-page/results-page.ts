@@ -193,6 +193,40 @@ export class ResultsComponent implements OnInit {
       })
       .catch(err => alert('Download failed: ' + err));
   }
+  downloadedIndex: number | null = null;
+
+  async handleDownload(imageUrl: string, filename: string, index: number) {
+    if (!imageUrl) return;
+
+    try {
+      const res = await fetch('http://localhost:5000/api/proxy-download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: imageUrl, name: filename })
+      });
+
+      if (!res.ok) throw new Error(res.statusText);
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      // flash green after saving
+      this.downloadedIndex = index;
+      setTimeout(() => {
+        this.downloadedIndex = null;
+      }, 2000);
+    } catch (err) {
+      console.error('Download failed', err);
+    }
+  }
 
   copiedIndex: number | null = null; // Stores index of variant whose text was just copied
 

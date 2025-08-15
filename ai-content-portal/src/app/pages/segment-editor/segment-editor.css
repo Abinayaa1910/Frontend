@@ -234,6 +234,10 @@ label {
   font-size: 18px;
   color: white;
 }
+.download-button.downloaded {
+  background: #16a34a; /* Green success */
+  cursor: default;
+}
 
 /* ---------- VARIANT BOXES ---------- */
 .variant-box {
